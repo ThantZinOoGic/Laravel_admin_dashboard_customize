@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  @extends('dashboard.header')
+  @include('dashboard.header')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -18,6 +18,7 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
+      
     </ul>
 
     <!-- Right navbar links -->
@@ -27,6 +28,7 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
+      
 
     </ul>
   </nav>
@@ -70,11 +72,34 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="{{ route('categories.create') }}" class="nav-link">
+              <i class="nav-icon fas fa-plus"></i>
+              <p>
+                Create Category
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('items.create') }}" class="nav-link">
+              <i class="nav-icon fas fa-plus"></i>
+              <p>
+                Create Item
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('categories.index') }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
+                Category
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('items.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Item Lists
               </p>
             </a>
           </li>
@@ -91,12 +116,13 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-
-      </div><!-- /.container-fluid -->
+        @yield('content')
+      </div>
     </section>
-    <!-- /.content -->
+    
   </div>
   <!-- /.content-wrapper -->
-  @extends('dashboard.footer')
+  @include('dashboard.footer')
+  
 </body>
 </html>
