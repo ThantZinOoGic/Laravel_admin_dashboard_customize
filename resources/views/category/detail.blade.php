@@ -1,9 +1,9 @@
 @extends('dashboard.index')
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-md-8">
-            <div class="card mt-5">
+            <div class="card mt-3">
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>

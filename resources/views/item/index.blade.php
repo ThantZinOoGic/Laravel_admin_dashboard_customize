@@ -1,17 +1,35 @@
 @extends('dashboard.index')
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-md-8">
-            <div class="card mt-5">
+            <div class="card mt-3">
                 @if (@session('create'))
-                    <div class="m-3 p-3 rounded bg-success">{{ @session('create') }}</div>
+                    {{-- <div class="m-3 p-3 rounded bg-success">{{ @session('create') }}</div> --}}
+                    <div class="alert alert-success alert-dismissible fade show mx-3 mt-3" role="alert">
+                        {{ @session('create') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
                 @endif
                 @if (@session('update'))
-                    <div class="m-3 p-3 rounded bg-warning">{{ @session('update') }}</div>
+                    {{-- <div class="m-3 p-3 rounded bg-warning">{{ @session('update') }}</div> --}}
+                    <div class="alert alert-warning alert-dismissible fade show mx-3 mt-3" role="alert">
+                        {{ @session('update') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
                 @endif
                 @if (@session('delete'))
-                    <div class="m-3 p-3 rounded bg-danger">{{ @session('delete') }}</div>
+                    {{-- <div class="m-3 p-3 rounded bg-danger">{{ @session('delete') }}</div> --}}
+                    <div class="alert alert-danger alert-dismissible fade show mx-3 mt-3" role="alert">
+                        {{ @session('delete') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
                 @endif
                 <div class="card-body">
                     <a href="{{ route('items.create') }}" class="btn btn-success">Add +</a>
@@ -29,7 +47,7 @@
                         <tbody>
                             @foreach ($items as $item)
                             <tr>
-                                <th scope="row">{{ $item->id }}</th>
+                                <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->category->name }}</td>
                                 <td>{{ $item->price }}</td>
@@ -53,8 +71,12 @@
                                 </td>
                             </tr>
                             @endforeach
-                        </tbody>
+                        </tbody>                        
+                        <div class="d-flex justify-content-end">
+                            {{ $items->links()  }}
+                        </div>
                       </table>
+
                 </div>
             </div>
         </div>

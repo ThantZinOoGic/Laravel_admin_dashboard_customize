@@ -14,9 +14,15 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        $items = Item::all();
+        $items = Item::orderBy('items.category_id')->paginate(5);
+        // return $items;
         return view('item.index', compact('items'));
     }
 
@@ -39,11 +45,13 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
+        // return $request;
         $item = new Item();
         $item->category_id = $request->category_id ;
         $item->name = $request->name ;
         $item->price = $request->price ;
         $item->expire_date = $request->expire_date ;
+        // return $item;
         $item->save();
         return redirect()->route('items.index')->with('create', 'Create is success!');
 

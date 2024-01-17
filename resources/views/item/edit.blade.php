@@ -1,9 +1,9 @@
 @extends('dashboard.index')
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-md-8">
-            <div class="card mt-5">
+            <div class="card mt-3">
                 <div class="card-header">Create Item</div>
                 <div class="card-body">
                     <form class="p-5" method="post" action="{{ route('items.update', $item->id) }}">
@@ -39,7 +39,7 @@
                             @enderror
                         </div>
                         <a href="{{ route('items.index') }}" class="btn btn-secondary">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </form>
                 </div>
             </div>

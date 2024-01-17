@@ -16,7 +16,7 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Category::class);
+            $table->foreignIdFor(Category::class)->constrained()->restrictOnDelete();
             $table->string('name');
             $table->integer('price');
             $table->date('expire_date');
