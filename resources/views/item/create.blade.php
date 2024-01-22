@@ -6,7 +6,7 @@
             <div class="card mt-3">
                 <div class="card-header">Create Item</div>
                 <div class="card-body">
-                    <form class="p-5" method="post" action="{{ route('items.store') }}">
+                    <form class="p-5" method="post" action="{{ route('items.store') }}" enctype="multipart/form-data">
                         @csrf
                         @method('post')
                         <div class="form-group">
@@ -39,6 +39,15 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Image <small class="text-danger">*</small></label>
+                            <input type="file" class="form-control @error('image') is-invalid @enderror" id="exampleInputEmail1" name="image" value="{{ old('image') }}">
+                            @error('image')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
                         <a href="{{ route('items.index') }}" class="btn btn-secondary">Cancel</a>
 
                         <button type="submit" class="btn btn-primary">Submit</button>

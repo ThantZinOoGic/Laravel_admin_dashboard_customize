@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
 {
@@ -23,6 +24,7 @@ class ItemController extends Controller
     {
         $items = Item::orderBy('items.category_id')->paginate(5);
         // return $items;
+        // return view('item.index', compact('items'));
         return view('item.index', compact('items'));
     }
 
@@ -45,10 +47,16 @@ class ItemController extends Controller
      */
     public function store(StoreItemRequest $request)
     {
+
         // return $request;
+        $image = $request->image;
+        $newName = "gallery_".uniqid().".".$image->extension();
+        $image->storeAs("public/gallery", $newName);
+
         $item = new Item();
         $item->category_id = $request->category_id ;
         $item->name = $request->name ;
+        $item->image = $newName;
         $item->price = $request->price ;
         $item->expire_date = $request->expire_date ;
         // return $item;
@@ -96,8 +104,17 @@ class ItemController extends Controller
         $item->name = $request->name ;
         $item->price = $request->price ;
         $item->expire_date = $request->expire_date ;
+        if($request->image)
+        {
+            $image = $request->image;
+            $newName = "gallery_".uniqid().".".$image->extension();
+            $image->storeAs("public/gallery", $newName);
+            Storage::disk('public')->delete('gallery/'. $item->image);
+            $item->image = $newName;
+        }
         $item->update();
         return redirect()->route('items.index')->with('update', 'Update is success!');
+        
     }
 
     /**
@@ -111,6 +128,7 @@ class ItemController extends Controller
         $item = Item::findOrFail($item->id);
         if($item)
         {
+            Storage::disk('public')->delete('gallery/'. $item->image);
             $item->delete();
         }
         return redirect()->back()->with('delete', 'Delete is success!');

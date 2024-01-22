@@ -6,7 +6,7 @@
             <div class="card mt-3">
                 <div class="card-header">Create Item</div>
                 <div class="card-body">
-                    <form class="p-5" method="post" action="{{ route('items.update', $item->id) }}">
+                    <form class="p-5" method="post" action="{{ route('items.update', $item->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="form-group">
@@ -37,6 +37,12 @@
                             @error('name')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
+                        </div>
+                        <div class="form-group">
+
+                            <label for="image">Upload Image <small class="text-danger">*</small></label><br>
+                            <img src="{{ asset('storage/gallery/'.$item->image) }}" alt="" style="width: 60px"><br>
+                            <input type="file" class="form-control" id="image" name="image"/>
                         </div>
                         <a href="{{ route('items.index') }}" class="btn btn-secondary">Cancel</a>
                         <button type="submit" class="btn btn-primary">Update</button>

@@ -18,6 +18,7 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->foreignIdFor(Category::class)->constrained()->restrictOnDelete();
             $table->string('name');
+            $table->string('image');
             $table->integer('price');
             $table->date('expire_date');
             $table->timestamps();
